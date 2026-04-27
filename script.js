@@ -154,6 +154,11 @@ goToTopBtn.addEventListener("click", () => {
     top: 0,
     behavior: "smooth",
   });
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
 });
 
 // 針對手機版 RWD 的額外監聽 (手機版是全頁捲動)
