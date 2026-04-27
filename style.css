@@ -1,0 +1,182 @@
+:root {
+  --primary: #2c3e50;
+  --accent: #d4a373;
+  --bg: #f4f7f6;
+  --meal-bg: #fdf2e9;
+  --hotel-bg: #e8f4f8;
+}
+* {
+  box-sizing: border-box;
+}
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+  background: var(--bg);
+}
+.main-container {
+  display: flex;
+  height: 100vh;
+  flex-direction: row;
+}
+#sidebar {
+  width: 45%;
+  overflow-y: auto;
+  background: white;
+  z-index: 10;
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
+}
+.header {
+  padding: 30px 25px;
+  background: var(--primary);
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+.itinerary {
+  padding: 20px;
+  background-color: seashell;
+}
+.day-group {
+  padding: 20px;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+.day-group:not(:last-child) {
+  margin-bottom: 20px;
+}
+.day-label {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--primary);
+  /* 增加左側裝飾線條，強化視覺重點 */
+  border-left: 5px solid var(--accent);
+  border-bottom: none; /* 移除原本的底線 */
+  padding: 0 0 0 15px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 1px;
+}
+.card {
+  background: #fcfcfc;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 12px;
+  border: 1px solid #f0f0f0;
+  transition: all 0.3s ease;
+}
+.card:hover {
+  transform: translateX(5px);
+  border-left: 5px solid var(--accent);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+.spot-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
+}
+.spot-desc {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* 新增：餐食與住宿樣式 */
+.info-box {
+  font-size: 13px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+}
+.info-box i {
+  margin-right: 10px;
+  margin-top: 3px;
+  width: 15px;
+  text-align: center;
+}
+.meal-info {
+  background: var(--meal-bg);
+  color: #873600;
+  border: 1px solid #fad7a0;
+}
+.hotel-info {
+  background: var(--hotel-bg);
+  color: #1b4f72;
+  border: 1px solid #aed6f1;
+  cursor: pointer;
+}
+.meal-item {
+  margin-right: 10px;
+}
+
+#map-container {
+  width: 55%;
+  flex-grow: 1;
+}
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+#goToTop {
+  position: fixed;
+  bottom: 30px;
+  right: calc(50% + 100px);
+  z-index: 999;
+  border: none;
+  outline: none;
+  background-color: var(--primary); /* 使用你原本的深藍色 */
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 18px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+}
+
+#goToTop:hover {
+  background-color: var(--accent); /* 滑過時變為暖木色 */
+  transform: translateY(-5px);
+}
+
+/* 當按鈕顯示時的 class */
+#goToTop.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (max-width: 992px) {
+  .main-container {
+    flex-direction: column;
+    height: auto;
+  }
+  #sidebar {
+    width: 100%;
+    order: 2;
+  }
+  #map-container {
+    width: 100%;
+    height: 40vh;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    order: 1;
+  }
+  #goToTop {
+    right: 20px;
+  }
+}

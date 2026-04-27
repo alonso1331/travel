@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2026 北陸行程</title>
+    <link rel="icon" href="./images/emperor.ico" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="main-container">
+      <div id="sidebar">
+        <div class="header">
+          <h1>🏔️ 北陸行程</h1>
+          <p>2026.05.07 - 05.14</p>
+        </div>
+        <div id="itinerary-list" class="itinerary"></div>
+      </div>
+
+      <div id="map-container">
+        <iframe
+          id="gmap"
+          src="https://maps.google.com/maps?q=富山&hl=zh-TW&z=10&output=embed"
+        ></iframe>
+      </div>
+      <button id="goToTop" title="回到頂部">
+        <i class="fas fa-chevron-up"></i>
+      </button>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>
