@@ -171,3 +171,24 @@ window.addEventListener("scroll", () => {
     }
   }
 });
+
+// 取得航班觸發元素
+const flightTrigger = document.querySelector('.flight-trigger');
+const flightPopup = document.querySelector('.flight-popup');
+
+// 監聽點擊事件
+flightTrigger.addEventListener('click', (e) => {
+  // 切換顯示狀態
+  const isVisible = flightPopup.style.visibility === 'visible';
+  flightPopup.style.visibility = isVisible ? 'hidden' : 'visible';
+  flightPopup.style.opacity = isVisible ? '0' : '1';
+  
+  // 防止點擊穿透到地圖或其他元素
+  e.stopPropagation();
+});
+
+// 點擊頁面其他地方時自動關閉
+document.addEventListener('click', () => {
+  flightPopup.style.visibility = 'hidden';
+  flightPopup.style.opacity = '0';
+});

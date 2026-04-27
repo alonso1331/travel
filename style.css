@@ -159,6 +159,69 @@ iframe {
   visibility: visible;
 }
 
+.flight-trigger {
+  position: relative; /* 重要：讓 popup 以此為基準 */
+  display: inline-block;
+  cursor: pointer;
+}
+
+.flight-trigger p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.info-icon {
+  margin-left: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.flight-popup {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: 130%; /* 距離觸發點下方一段距離 */
+  left: 0;
+  width: 280px;
+  background-color: white;
+  color: var(--primary); /* 使用你原本的深藍色 */
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  z-index: 1000;
+  transition: all 0.3s ease;
+  pointer-events: none; /* 防止擋住下方滑鼠操作 */
+}
+
+/* 內部排版微調 */
+.flight-item strong {
+  color: var(--accent); /* 使用暖木色強調航班號 */
+  display: block;
+  margin-bottom: 3px;
+}
+.flight-item p {
+  font-size: 13px;
+  color: #555;
+  margin: 0;
+}
+.flight-popup hr {
+  border: 0;
+  border-top: 1px solid #eee;
+  margin: 10px 0;
+}
+
+/* Hover 觸發顯示 */
+.flight-trigger:hover .flight-popup {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
 @media (max-width: 992px) {
   .main-container {
     flex-direction: column;
@@ -178,5 +241,25 @@ iframe {
   }
   #goToTop {
     right: 20px;
+  }
+  .flight-popup {
+    position: absolute; /* 改回 absolute，不再固定於螢幕中央 */
+    top: 130%; 
+    left: 0;
+    transform: none; /* 移除位移修正 */
+    width: 260px; /* 給予固定寬度，避免手機寬度撐開 */
+    visibility: hidden;
+    opacity: 0;
+    z-index: 1000;
+  }
+
+  /* 重新把小箭頭顯示回來 */
+  .flight-popup::after {
+    display: block;
+  }
+
+  /* 修正手機版 Header 空間，避免 popup 被裁切 */
+  .header {
+    overflow: visible !important;
   }
 }
