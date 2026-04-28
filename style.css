@@ -228,6 +228,9 @@ iframe {
     flex-direction: column;
     height: auto;
   }
+  h1 {
+    margin: 0px 0px 10px 0px;
+  }
   #sidebar {
     width: 100%;
     order: 2;
@@ -253,14 +256,13 @@ iframe {
     opacity: 0;
     z-index: 1000;
   }
-
   /* 重新把小箭頭顯示回來 */
   .flight-popup::after {
     display: block;
   }
-
   /* 修正手機版 Header 空間，避免 popup 被裁切 */
   .header {
+    padding: 10px 25px;
     overflow: visible !important;
   }
 }
