@@ -23,6 +23,7 @@ html {
 }
 #sidebar {
   width: 45%;
+  /* 桌機版此設定會影響aos 特效 */
   overflow-y: auto;
   background: white;
   z-index: 10;

@@ -87,10 +87,12 @@ const itineraryData = [
 ];
 
 const listContainer = document.getElementById("itinerary-list");
+const isMobile = window.innerWidth <= 992; // 判斷是否為手機版
 
 itineraryData.forEach((day) => {
+  const aosAttr = isMobile ? 'data-aos="zoom-in"' : '';
   let dayHtml = `
-      <div class="day-group">
+      <div class="day-group" ${aosAttr}>
           <div class="day-label">${day.date} - ${day.theme}</div>
           
           <div class="info-box meal-info">
