@@ -1,3 +1,46 @@
+window.onload = function() {
+  const now = new Date();
+  const month = now.getMonth() + 1; // 5月
+  const date = now.getDate();
+  const hour = now.getHours();
+  
+  let defaultLocation = "金澤市"; // 全域預設值
+
+  // 判斷是否在行程區間內 (2026年5月)
+  if (now.getFullYear() === 2026 && month === 5) {
+    if (date === 7) {
+      // 5/7 下午4點後抵達福井 (檔案紀錄 5/7 住宿為福井)
+      if (hour >= 16) defaultLocation = "福井";
+    } 
+    else if (date === 8) {
+      // 5/8 整天在福井 (永平寺、一乘谷朝倉氏遺跡)
+      defaultLocation = "福井";
+    } 
+    else if (date === 9) {
+      // 5/9 下午4點後抵達富山 (檔案紀錄 5/9 住宿轉為富山)
+      if (hour >= 16) defaultLocation = "富山";
+      else defaultLocation = "福井";
+    } 
+    else if (date === 10) {
+      // 5/10 下午4點在新高岡 (檔案紀錄 5/10 住宿為新高岡)
+      if (hour >= 16) defaultLocation = "新高岡";
+      else defaultLocation = "富山";
+    } 
+    else if (date === 11) {
+      // 5/11 下午3點後在金澤 (檔案紀錄 5/11 住宿轉為金澤)
+      if (hour >= 15) defaultLocation = "金澤";
+      else defaultLocation = "新高岡";
+    }
+    else if (date >= 12 && date <= 14) {
+      // 5/12-5/14 住宿均在金澤
+      defaultLocation = "金澤";
+    }
+  }
+
+  // 執行地圖更新
+  updateMap(defaultLocation);
+};
+
 const itineraryData = [
   {
     date: "5/7 (四)",
@@ -127,7 +170,7 @@ itineraryData.forEach((day) => {
   listContainer.innerHTML += dayHtml;
 });
 
-function updateMap(address) {
+const updateMap = (address) => {
   const encoded = encodeURIComponent(address);
   // 修正連結格式
   document.getElementById("gmap").src =
