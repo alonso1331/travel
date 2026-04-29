@@ -2,7 +2,7 @@ const itineraryData = [
   {
     date: "5/7 (四)",
     theme: "抵達福井",
-    meals: { b: "自理", l: "自理", d: "" },
+    meals: { b: "自理", l: "自理", d: "焼めし つねを 小松駅店" },
     hotel: "東横INN 福井站前",
     spots: [{ name: "待議", desc: "" }],
   },
@@ -14,14 +14,14 @@ const itineraryData = [
     spots: [
       { name: "永平寺", desc: "曹洞宗大本山，靜謐禪意" },
       { name: "平泉寺白山神社", desc: "" },
-      { name: "大野", desc: "" },
+      { name: "大野市", desc: "" },
       { name: "一乘谷朝倉氏遺跡", desc: "戰國時代城下町遺構" },
     ],
   },
   {
     date: "5/9 (六)",
     theme: "福井 → 富山",
-    meals: { b: "飯店早餐", l: "", d: "" },
+    meals: { b: "飯店早餐", l: "", d: "富山迴轉壽司 富山車站前店" },
     hotel: "東橫INN 富山站新幹線口2號店",
     spots: [
       { name: "毛谷黑龍神社", desc: "" },
@@ -52,6 +52,7 @@ const itineraryData = [
       { name: "雨晴", desc: "" },
       { name: "氣多神社", desc: "" },
       { name: "高岡大佛射水神社", desc: "" },
+      { name: "金澤FORUS--購物", desc: "島村樂器、UNIQLO、無印良品" },
     ],
   },
   {
@@ -60,8 +61,8 @@ const itineraryData = [
     meals: { b: "飯店早餐", l: "", d: "" },
     hotel: "東橫INN 金澤車站東口",
     spots: [
-      { name: "待議", desc: "" },
-      { name: "待議", desc: "" },
+      { name: "近江町市場", desc: "" },
+      { name: "長町武家屋敷跡", desc: "" },
     ],
   },
   {
@@ -70,7 +71,7 @@ const itineraryData = [
     meals: { b: "飯店早餐", l: "", d: "" },
     hotel: "東橫INN 金澤車站東口",
     spots: [
-      { name: "待議", desc: "" },
+      { name: "金澤城 兼六園", desc: "" },
       { name: "待議", desc: "" },
     ],
   },
