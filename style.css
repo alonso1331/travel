@@ -223,6 +223,73 @@ iframe {
   pointer-events: auto;
 }
 
+.specialty-info {
+  background: #f5eef8;
+  color: #6c3483;
+  border: 1px solid #d7bde2;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.specialty-text {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 特產 info-box 內的圖示容器 */
+.specialty-icon-container {
+  position: relative;
+  cursor: help; /* 讓鼠標變成問號，提示有隱藏資訊 */
+}
+
+/* 預設隱藏的小圖片 */
+.specialty-preview-img {
+  position: absolute;
+  bottom: 120%; /* 顯示在圖示上方 */
+  left: 50%;
+  transform: translateX(-50%) scale(0.8);
+  width: 200px;
+  height: 140px;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  border: 2px solid white;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 100;
+  pointer-events: none; /* 避免擋住滑鼠操作 */
+}
+
+/* Hover 圖示時顯示圖片 */
+.specialty-icon-container:hover .specialty-preview-img {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-75%) scale(1);
+}
+
+/* 針對特產區塊內的相機圖示放大 */
+.specialty-icon-container i.fa-image {
+  font-size: 20px;         /* 調整這裡的大小，原本預設大約是 14-16px */
+  margin-left: 10px;       /* 與左側文字保持距離 */
+  color: #a569bd;          /* 稍微淡一點點的紫色，增加層次感 */
+  transition: color 0.3s;
+}
+
+/* Hover 圖示時，圖示本身也可以有一點變化回饋 */
+.specialty-icon-container:hover i.fa-image {
+  color: #6c3483;          /* 變回深紫色 */
+}
+
+/* 調整 info-box 內部對齊，確保放大後的圖示與文字置中對齊 */
+.specialty-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 15px;      /* 稍微增加一點內距 */
+}
+
 @media (max-width: 992px) {
   .main-container {
     flex-direction: column;

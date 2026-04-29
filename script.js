@@ -1,9 +1,9 @@
-window.onload = function() {
+window.onload = function () {
   const now = new Date();
   const month = now.getMonth() + 1; // 5月
   const date = now.getDate();
   const hour = now.getHours();
-  
+
   let defaultLocation = "金澤市"; // 全域預設值
 
   // 判斷是否在行程區間內 (2026年5月)
@@ -11,27 +11,22 @@ window.onload = function() {
     if (date === 7) {
       // 5/7 下午4點後抵達福井 (檔案紀錄 5/7 住宿為福井)
       if (hour >= 16) defaultLocation = "福井";
-    } 
-    else if (date === 8) {
+    } else if (date === 8) {
       // 5/8 整天在福井 (永平寺、一乘谷朝倉氏遺跡)
       defaultLocation = "福井";
-    } 
-    else if (date === 9) {
+    } else if (date === 9) {
       // 5/9 下午4點後抵達富山 (檔案紀錄 5/9 住宿轉為富山)
       if (hour >= 16) defaultLocation = "富山";
       else defaultLocation = "福井";
-    } 
-    else if (date === 10) {
+    } else if (date === 10) {
       // 5/10 下午4點在新高岡 (檔案紀錄 5/10 住宿為新高岡)
       if (hour >= 16) defaultLocation = "新高岡";
       else defaultLocation = "富山";
-    } 
-    else if (date === 11) {
+    } else if (date === 11) {
       // 5/11 下午3點後在金澤 (檔案紀錄 5/11 住宿轉為金澤)
       if (hour >= 15) defaultLocation = "金澤";
       else defaultLocation = "新高岡";
-    }
-    else if (date >= 12 && date <= 14) {
+    } else if (date >= 12 && date <= 14) {
       // 5/12-5/14 住宿均在金澤
       defaultLocation = "金澤";
     }
@@ -48,6 +43,14 @@ const itineraryData = [
     meals: { b: "自理", l: "自理", d: "焼めし つねを 小松駅店" },
     hotel: "東横INN 福井站前",
     spots: [{ name: "待議", desc: "" }],
+    specialties: [
+      {
+        name: "村中甘泉堂 羽二重餅",
+        target: "くるふ福井駅店",
+        tag: "https://www.kansendo.com/item/",
+        img: "./images/村中甘泉堂羽二重餅.png",
+      },
+    ],
   },
   {
     date: "5/8 (五)",
@@ -70,6 +73,14 @@ const itineraryData = [
       { name: "毛谷黑龍神社", desc: "" },
       { name: "柴田神社(北之庄城)", desc: "" },
       { name: "富山市役所展望塔", desc: "" },
+    ],
+    specialties: [
+      {
+        name: "富山柿餅",
+        target: "南礪市 三社柿",
+        tag: "400年工藝",
+        img: "",
+      },
     ],
   },
   {
@@ -134,7 +145,7 @@ const listContainer = document.getElementById("itinerary-list");
 const isMobile = window.innerWidth <= 992; // 判斷是否為手機版
 
 itineraryData.forEach((day) => {
-  const aosAttr = isMobile ? 'data-aos="zoom-in"' : '';
+  const aosAttr = isMobile ? 'data-aos="zoom-in"' : "";
   let dayHtml = `
       <div class="day-group" ${aosAttr}>
           <div class="day-label">${day.date} - ${day.theme}</div>
@@ -149,23 +160,44 @@ itineraryData.forEach((day) => {
           </div>
   `;
 
-  // 景點列表
+  // 1. 景點列表
   day.spots.forEach((spot) => {
     dayHtml += `
-          <div class="card" onclick="updateMap('${spot.name}')">
-              <div class="spot-title">${spot.name}</div>
-              <div class="spot-desc">${spot.desc}</div>
-          </div>
-      `;
+      <div class="card" onclick="updateMap('${spot.name}')">
+        <div class="spot-title">${spot.name}</div>
+        <div class="spot-desc">${spot.desc}</div>
+      </div>
+    `;
   });
 
-  // 住宿資訊
-  dayHtml += `
-          <div class="info-box hotel-info" onclick="updateMap('${day.hotel}')">
-            <i class="fas fa-bed"></i>
-            <div><strong>住宿：</strong>${day.hotel}</div>
+  // 2. 新增：北陸特產 (如果該日有資料才顯示)
+  if (day.specialties && day.specialties.length > 0) {
+    day.specialties.forEach((spec) => {
+      dayHtml += `
+        <div class="info-box specialty-info" onclick="updateMap('${spec.target}')">
+          <div class="specialty-text">
+            <div><i class="fas fa-gift"></i></div>
+            <div>
+              <strong>特產：</strong>${spec.name} (${spec.tag})
+            </div>
           </div>
-      </div>`;
+          <!-- 圖示與預覽圖容器 -->
+          <div class="specialty-icon-container">
+            <i class="fas fa-image"></i>
+            <img src="${spec.img || "./images/default.png"}" class="specialty-preview-img" alt="${spec.name}" />
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  // 3. 住宿資訊
+  dayHtml += `
+    <div class="info-box hotel-info" onclick="updateMap('${day.hotel}')">
+      <i class="fas fa-bed"></i>
+      <div><strong>住宿：</strong>${day.hotel}</div>
+    </div>
+  </div>`;
 
   listContainer.innerHTML += dayHtml;
 });
@@ -179,7 +211,7 @@ const updateMap = (address) => {
   if (window.innerWidth <= 992) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
-}
+};
 
 const goToTopBtn = document.getElementById("goToTop");
 const sidebar = document.getElementById("sidebar");
