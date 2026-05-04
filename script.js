@@ -73,6 +73,7 @@ const itineraryData = [
       { name: "毛谷黑龍神社", desc: "" },
       { name: "柴田神社(北之庄城)", desc: "" },
       { name: "富山市役所展望塔", desc: "" },
+      { name: "3COINS 富山站前", desc: "" },
     ],
     specialties: [
       {
@@ -147,17 +148,17 @@ const isMobile = window.innerWidth <= 992; // 判斷是否為手機版
 itineraryData.forEach((day) => {
   const aosAttr = isMobile ? 'data-aos="zoom-in"' : "";
   let dayHtml = `
-      <div class="day-group" ${aosAttr}>
-          <div class="day-label">${day.date} - ${day.theme}</div>
-          
-          <div class="info-box meal-info">
-            <i class="fas fa-utensils"></i>
-            <div>
-              <span class="meal-item"><strong>早：</strong>${day.meals.b}</span>
-              <span class="meal-item"><strong>中：</strong>${day.meals.l}</span>
-              <span class="meal-item"><strong>晚：</strong>${day.meals.d}</span>
-            </div>
-          </div>
+    <div class="day-group" ${aosAttr}>
+      <div class="day-label">${day.date} - ${day.theme}</div>
+      
+      <div class="info-box meal-info">
+        <i class="fas fa-utensils"></i>
+        <div>
+          <span class="meal-item"><strong>早：</strong>${day.meals.b}</span>
+          <span class="meal-item"><strong>中：</strong>${day.meals.l}</span>
+          <span class="meal-item"><strong>晚：</strong>${day.meals.d}</span>
+        </div>
+      </div>
   `;
 
   // 1. 景點列表
@@ -270,3 +271,52 @@ document.addEventListener('click', () => {
   flightPopup.style.visibility = 'hidden';
   flightPopup.style.opacity = '0';
 });
+
+// ===== 天氣預報功能 =====
+const weatherLocations = {
+  fukui:    { label: "福井", lat: 36.0652, lon: 136.2217 },
+  toyama:   { label: "富山", lat: 36.6953, lon: 137.2113 },
+  takaoka:  { label: "新高岡", lat: 36.7580, lon: 137.0059 },
+  kanazawa: { label: "金澤", lat: 36.5613, lon: 136.6562 },
+};
+
+const dayRegions = [
+  "fukui", "fukui", "toyama", "takaoka", "kanazawa", "kanazawa", "kanazawa", "kanazawa"
+];
+
+function wmoIcon(code) {
+  if (code === 0) return "☀️";
+  if (code <= 2) return "⛅";
+  if (code <= 3) return "☁️";
+  if (code <= 49) return "🌫️";
+  if (code <= 69) return "🌦️";
+  if (code <= 79) return "🌨️";
+  return "⛈️";
+}
+
+async function loadWeatherBadges() {
+  const weatherMap = {};
+  const regions = [...new Set(dayRegions)];
+  await Promise.all(regions.map(async (r) => {
+    const { lat, lon } = weatherLocations[r];
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weathercode&timezone=Asia%2FTokyo&start_date=2026-05-07&end_date=2026-05-14`;
+    const res = await fetch(url);
+    weatherMap[r] = (await res.json()).daily;
+  }));
+
+  document.querySelectorAll('.day-group').forEach((el, i) => {
+    const region = dayRegions[i];
+    const d = weatherMap[region];
+    const hi = Math.round(d.temperature_2m_max[i]);
+    const lo = Math.round(d.temperature_2m_min[i]);
+    const rain = Math.round(d.precipitation_probability_max[i]);
+    const icon = wmoIcon(d.weathercode[i]);
+
+    const badge = document.createElement('div');
+    badge.className = 'weather-badge';
+    badge.innerHTML = `<span class="wb-icon">${icon}</span><span class="wb-hi">${hi}°</span><span class="wb-sep">/</span><span class="wb-lo">${lo}°</span><span class="wb-rain">☂️${rain}%</span>`;
+    el.querySelector('.day-label').appendChild(badge);
+  });
+}
+
+loadWeatherBadges();

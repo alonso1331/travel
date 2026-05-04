@@ -223,14 +223,6 @@ iframe {
   pointer-events: auto;
 }
 
-.specialty-info {
-  background: #f5eef8;
-  color: #6c3483;
-  border: 1px solid #d7bde2;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
 .specialty-text {
   display: flex;
   align-items: center;
@@ -285,10 +277,51 @@ iframe {
 /* 調整 info-box 內部對齊，確保放大後的圖示與文字置中對齊 */
 .specialty-info {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   padding: 12px 15px;      /* 稍微增加一點內距 */
+  background: #f5eef8;
+  color: #6c3483;
+  border: 1px solid #d7bde2;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
+
+.day-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.weather-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 400;
+  font-size: 16px;
+  font-weight: 400;
+  background: rgba(212, 163, 115, 0.12);
+  border: 1px solid rgba(212, 163, 115, 0.3);
+  border-radius: 20px;
+  padding: 2px 10px;
+  white-space: nowrap;
+  transition: all 0.4s ease;
+}
+
+.weather-badge:hover {
+  transform: scale(1.1);
+}
+
+.wb-icon { font-size: 16px; }
+.wb-hi { color: #c0392b; font-weight: 600; }
+.wb-sep { color: #aaa; }
+.wb-lo { color: #2980b9; font-weight: 600; }
+.wb-rain { color: #555; margin-left: 4px; }
 
 @media (max-width: 992px) {
   .main-container {
@@ -331,5 +364,11 @@ iframe {
   .header {
     padding: 10px 25px;
     overflow: visible !important;
+  }
+  .day-label {
+    font-size: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
   }
 }
