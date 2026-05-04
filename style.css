@@ -224,9 +224,13 @@ iframe {
 }
 
 .specialty-text {
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-between; */
+  flex: 1;          /* 新增：佔滿剩餘空間 */
+  min-width: 0;     /* 新增：允許文字收縮，防止撐破容器 */
+  gap: 8px;
+  word-break: keep-all;
 }
 
 /* 特產 info-box 內的圖示容器 */
@@ -277,7 +281,6 @@ iframe {
 /* 調整 info-box 內部對齊，確保放大後的圖示與文字置中對齊 */
 .specialty-info {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   padding: 12px 15px;      /* 稍微增加一點內距 */
@@ -364,6 +367,23 @@ iframe {
   .header {
     padding: 10px 25px;
     overflow: visible !important;
+  }
+  .specialty-info {
+    flex-direction: column;   /* 左右改為上下排列 */
+    align-items: flex-start;  /* 靠左對齊 */
+    gap: 8px;
+  }
+  .specialty-icon-container {
+    align-self: flex-end;     /* 圖片預覽圖示推到右側 */
+  }
+  /* 手機版預覽圖改為向上展開，避免被裁切 */
+  .specialty-preview-img {
+    left: auto;
+    right: 0;
+    transform: translateX(0) scale(0.8);
+  }
+  .specialty-icon-container:hover .specialty-preview-img {
+    transform: translateX(0) scale(1);
   }
   .day-label {
     font-size: 16px;
