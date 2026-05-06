@@ -55,13 +55,15 @@ const itineraryData = [
   {
     date: "5/8 (五)",
     theme: "福井",
-    meals: { b: "飯店早餐", l: "", d: "" },
+    meals: { b: "飯店早餐", l: "なごや", d: "石田屋" },
     hotel: "東横INN 福井站前",
     spots: [
       { name: "永平寺", desc: "曹洞宗大本山，靜謐禪意" },
+      { name: "道の駅 恐竜渓谷かつやま", desc: "恐龍博物館附近的道の駅" },
       { name: "平泉寺白山神社", desc: "" },
       { name: "大野市", desc: "" },
       { name: "一乘谷朝倉氏遺跡", desc: "戰國時代城下町遺構" },
+      { name: "Workman Plus Fukui Wada", desc: "" },
     ],
   },
   {
